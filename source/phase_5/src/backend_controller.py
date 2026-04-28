@@ -17,10 +17,10 @@ logging.basicConfig(
 )
 logger = logging.getLogger("backend_controller")
 
-# Add Phase 3 and Phase 4 paths to sys.path to import engines
+# Add phase_3 and phase_4 paths to sys.path to import engines
 source_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-phase3_src = os.path.join(source_dir, "phase 3", "src")
-phase4_src = os.path.join(source_dir, "phase 4", "src")
+phase3_src = os.path.join(source_dir, "phase_3", "src")
+phase4_src = os.path.join(source_dir, "phase_4", "src")
 
 if phase3_src not in sys.path: sys.path.append(phase3_src)
 if phase4_src not in sys.path: sys.path.append(phase4_src)
@@ -40,7 +40,7 @@ class BackendController:
     def get_recommendations(self, location: str, max_budget: float, cuisines: list, min_rating: float, user_query: str):
         logger.info(f"Processing request: Location={location}, Max Budget={max_budget}, Cuisines={cuisines}, Rating>={min_rating}")
         
-        # 1. Filter Data (Search Engine Phase 3) - Get top 15 to give LLM more options
+        # 1. Filter Data (Search Engine phase_3) - Get top 15 to give LLM more options
         filtered_df = self.search_engine.filter_restaurants(
             location=location,
             max_budget=max_budget,
@@ -56,7 +56,7 @@ class BackendController:
         # 2. Generate Context Block
         context_block = self.search_engine.generate_context(filtered_df)
         
-        # 3. Get LLM Recommendations (LLM Engine Phase 4)
+        # 3. Get LLM Recommendations (LLM Engine phase_4)
         if not user_query or user_query.strip() == "":
             cuisine_str = ", ".join(cuisines) if cuisines else "various"
             budget_str = f"maximum budget of ₹{max_budget}" if max_budget else "flexible budget"

@@ -17,11 +17,11 @@ This project uses **3 main external APIs/services** and several Python libraries
 - **Documentation:** https://console.groq.com/docs
 
 ### Where It's Used:
-- **File:** `source/phase 4/src/llm_engine.py` (Lines 5, 34, 74-83)
+- **File:** `source/phase_4/src/llm_engine.py` (Lines 5, 34, 74-83)
 - **Function:** `LLMRecommendationEngine.generate_recommendations()`
 
 ### API Key Location:
-- **File:** `source/phase 1/.env`
+- **File:** `source/phase_1/.env`
 - **Variable:** `GROQ_API_KEY`
 - **Current Key:** `gsk_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx` (Replace with your actual key in .env)
 
@@ -65,7 +65,7 @@ response = client.chat.completions.create(
 - **Documentation:** https://huggingface.co/docs/datasets
 
 ### Where It's Used:
-- **File:** `source/phase 2/src/data_ingestion.py` (Line 3, ~Line 30)
+- **File:** `source/phase_2/src/data_ingestion.py` (Line 3, ~Line 30)
 - **Function:** Data acquisition and loading
 
 ### How It Works:
@@ -98,7 +98,7 @@ dataset = load_dataset("ManikaSaini/zomato-restaurant-recommendation")
 - **Documentation:** https://docs.streamlit.io
 
 ### Where It's Used:
-- **File:** `source/phase 5/app.py` (Throughout the file)
+- **File:** `source/phase_5/app.py` (Throughout the file)
 - **Components:** 
   - `st.set_page_config()` - Page configuration
   - `st.sidebar` - Input controls
@@ -119,13 +119,13 @@ dataset = load_dataset("ManikaSaini/zomato-restaurant-recommendation")
 
 | Library | Purpose | Used In |
 |---------|---------|---------|
-| **pandas** | Data manipulation & analysis | Phase 2, 3, 5 |
-| **numpy** | Numerical operations | Phase 2, 3 |
-| **pyarrow** | Parquet file support | Phase 2, 5 |
-| **python-dotenv** | Environment variable management | Phase 1, 4 |
+| **pandas** | Data manipulation & analysis | phase_2, 3, 5 |
+| **numpy** | Numerical operations | phase_2, 3 |
+| **pyarrow** | Parquet file support | phase_2, 5 |
+| **python-dotenv** | Environment variable management | phase_1, 4 |
 
 ### Where to Find Them:
-- **requirements.txt** files in each phase directory
+- **requirements.txt** files in each phase_directory
 - **Installed in:** `source/venv/Lib/site-packages/`
 
 ---
@@ -136,7 +136,7 @@ dataset = load_dataset("ManikaSaini/zomato-restaurant-recommendation")
 
 **Groq API Key:**
 ```
-Location: source/phase 1/.env
+Location: source/phase_1/.env
 Format: GROQ_API_KEY=gsk_xxxxxxxxxxxxx
 Status: ✅ Configured
 ```
@@ -150,7 +150,7 @@ Status: ✅ Configured
 ### How to Update API Key:
 ```bash
 # Open the .env file
-notepad "source\phase 1\.env"
+notepad "source\phase_1\.env"
 
 # Update the key
 GROQ_API_KEY=your_new_api_key_here
@@ -188,10 +188,10 @@ http://localhost:8502
 
 ### View Logs:
 ```
-Phase 2: source/phase 2/logs/data_ingestion.log
-Phase 3: source/phase 3/logs/search_engine.log
-Phase 4: source/phase 4/logs/llm_engine.log
-Phase 5: source/phase 5/logs/backend_controller.log
+phase_2: source/phase_2/logs/data_ingestion.log
+phase_3: source/phase_3/logs/search_engine.log
+phase_4: source/phase_4/logs/llm_engine.log
+phase_5: source/phase_5/logs/backend_controller.log
 ```
 
 ### Example Log Entry (Groq API):
@@ -206,19 +206,19 @@ https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
 
 ### Test Groq API:
 ```bash
-cd "source\phase 4"
+cd "source\phase_4"
 ..\venv\Scripts\python.exe src\llm_engine.py
 ```
 
 ### Test Hugging Face Dataset:
 ```bash
-cd "source\phase 2"
+cd "source\phase_2"
 ..\venv\Scripts\python.exe src\data_ingestion.py
 ```
 
 ### Test Complete Flow:
 ```bash
-cd "source\phase 5"
+cd "source\phase_5"
 ..\venv\Scripts\python.exe tests\test_backend.py
 ```
 
@@ -251,17 +251,17 @@ cd "source\phase 5"
 
 ### Environment Variables:
 ```
-source/phase 1/.env
+source/phase_1/.env
 ├── GROQ_API_KEY (Required)
 ```
 
 ### Requirements:
 ```
-source/phase 1/requirements.txt
-source/phase 2/requirements.txt
-source/phase 3/requirements.txt
-source/phase 4/requirements.txt
-source/phase 5/requirements.txt
+source/phase_1/requirements.txt
+source/phase_2/requirements.txt
+source/phase_3/requirements.txt
+source/phase_4/requirements.txt
+source/phase_5/requirements.txt
 ```
 
 ---

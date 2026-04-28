@@ -5,7 +5,7 @@ import sys
 from groq import Groq
 from dotenv import load_dotenv
 
-# Setup logging for Phase 4
+# Setup logging for phase_4
 log_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "logs")
 os.makedirs(log_dir, exist_ok=True)
 logging.basicConfig(
@@ -23,12 +23,12 @@ class LLMRecommendationEngine:
         """
         Initializes the Groq API client and sets up the System Prompt persona.
         """
-        # Try root directory first (four levels up from source/phase 4/src/llm_engine.py)
+        # Try root directory first (four levels up from source/phase_4/src/llm_engine.py)
         root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
         env_path_root = os.path.join(root_dir, ".env")
         
-        # Try phase 1 directory (previous location)
-        env_path_phase1 = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "phase 1", ".env")
+        # Try phase_1 directory (previous location)
+        env_path_phase1 = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "phase_1", ".env")
         
         if os.path.exists(env_path_root):
             load_dotenv(env_path_root)
@@ -43,7 +43,7 @@ class LLMRecommendationEngine:
         
         api_key = os.getenv("GROQ_API_KEY")
         if not api_key:
-            logger.warning("GROQ_API_KEY is not set. Please ensure your .env file is in the root directory or phase 1 folder.")
+            logger.warning("GROQ_API_KEY is not set. Please ensure your .env file is in the root directory or phase_1 folder.")
             
         self.client = Groq(api_key=api_key)
         self.model_name = model_name

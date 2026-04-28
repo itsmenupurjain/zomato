@@ -6,7 +6,7 @@ This document outlines the detailed step-by-step architecture for building an AI
 
 ---
 
-## Phase 1: Project Setup & Environment Preparation
+## phase_1: Project Setup & Environment Preparation
 1. **Repository Setup:** 
    - Initialize the project directory and set up Git version control.
    - Create a structured project layout (e.g., `data/`, `src/`, `notebooks/`, `tests/`).
@@ -24,7 +24,7 @@ This document outlines the detailed step-by-step architecture for building an AI
 4. **Logging Setup:** 
    - Configure basic Python logging to track application events, errors, and LLM API latencies.
 
-## Phase 2: Data Ingestion & Preprocessing
+## phase_2: Data Ingestion & Preprocessing
 1. **Data Acquisition:** 
    - Use the `datasets` library to download `ManikaSaini/zomato-restaurant-recommendation` from the Hugging Face hub.
    - Convert the Hugging Face dataset object into a Pandas DataFrame for easier manipulation.
@@ -38,7 +38,7 @@ This document outlines the detailed step-by-step architecture for building an AI
 3. **Structured Storage:** 
    - Export the cleaned DataFrame into a `.parquet` file in the `data/` directory. Parquet is highly optimized for fast read speeds and takes up less disk space compared to CSV, making it ideal for loading into a Streamlit app.
 
-## Phase 3: Search & Integration Layer
+## phase_3: Search & Integration Layer
 1. **Preference Collection Schema:** 
    - Map user inputs to data columns:
      - **Location:** Dropdown selection from database locations (or "Any" for no filter).
@@ -55,10 +55,10 @@ This document outlines the detailed step-by-step architecture for building an AI
    - Transform the pre-filtered dataframe rows into a concise string or JSON block. 
    - Example format per restaurant: `Name: {name}, Cuisine: {cuisine}, Rating: {rating}, Cost: {cost}, Location: {location}`.
 
-## Phase 4: LLM Recommendation Engine
+## phase_4: LLM Recommendation Engine
 1. **Prompt Engineering:** 
    - **System Prompt:** Define the LLM's persona as an expert food concierge. Establish rules (e.g., "Only recommend restaurants from the provided context", "Keep explanations concise").
-   - **User Prompt:** Inject the user's raw query (e.g., "Looking for a family-friendly Italian place") alongside the structured context block generated in Phase 3.
+   - **User Prompt:** Inject the user's raw query (e.g., "Looking for a family-friendly Italian place") alongside the structured context block generated in phase_3.
 2. **LLM Invocation:** 
    - Initialize the Groq API client.
    - Send the prompt to a fast model (e.g., `llama3-70b-8192` or `mixtral-8x7b-32768`) to ensure low-latency responses suitable for a real-time UI.
@@ -68,7 +68,7 @@ This document outlines the detailed step-by-step architecture for building an AI
    - Prompt the LLM to return its response in a structured format (like JSON or specific Markdown headers).
    - Parse the LLM output in Python to separate the restaurant details from the generated explanations for clean UI rendering.
 
-## Phase 5: Backend & UI Integration
+## phase_5: Backend & UI Integration
 1. **Backend Controller Development:**
    - Develop a unified controller class (`backend_controller.py`) that orchestrates the flow between the Data Filtering Engine and the LLM Recommendation Engine.
    - Combine the structured filtering output (Rating, Cost, Cuisine) with the LLM's unstructured explanations to create a clean, unified data model for the frontend.
@@ -87,7 +87,7 @@ This document outlines the detailed step-by-step architecture for building an AI
    - Display the final recommendations using `st.columns` or `st.container` to create visual "cards".
    - Each card should clearly show the Restaurant Name, Rating, Cost, Cuisine, and crucially, the AI-generated personalized explanation.
 
-## Phase 6: Testing & Optimization
+## phase_6: Testing & Optimization
 1. **Unit Testing:** 
    - Write tests using `pytest` to ensure data cleaning functions work correctly (e.g., parsing costs properly) and the filtering logic correctly applies masks without dropping valid results.
 2. **Prompt Tuning & Guardrails:** 

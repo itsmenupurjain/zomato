@@ -6,7 +6,7 @@ import os
 import logging
 import sys
 
-# Setup logging for Phase 2
+# Setup logging for phase_2
 log_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "logs")
 os.makedirs(log_dir, exist_ok=True)
 logging.basicConfig(
@@ -61,7 +61,7 @@ def standardize_location(loc_str):
     return str(loc_str).strip().title()
 
 def run_pipeline():
-    logger.info("Starting Phase 2: Data Ingestion & Preprocessing")
+    logger.info("Starting phase_2: Data Ingestion & Preprocessing")
     
     # 1. Data Acquisition
     logger.info("Downloading dataset 'ManikaSaini/zomato-restaurant-recommendation' from Hugging Face...")

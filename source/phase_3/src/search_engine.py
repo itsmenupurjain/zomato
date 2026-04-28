@@ -4,7 +4,7 @@ import os
 import logging
 import sys
 
-# Setup logging for Phase 3
+# Setup logging for phase_3
 log_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "logs")
 os.makedirs(log_dir, exist_ok=True)
 logging.basicConfig(
@@ -126,9 +126,9 @@ if __name__ == "__main__":
     # Example testing code
     current_dir = os.path.dirname(os.path.dirname(__file__))
     
-    # We point to the cleaned data generated in Phase 2
-    # Assuming phase 2 and phase 3 are side-by-side in the 'source' folder
-    phase2_data_file = os.path.join(os.path.dirname(current_dir), "phase 2", "data", "cleaned_restaurants.parquet")
+    # We point to the cleaned data generated in phase_2
+    # Assuming phase_2 and phase_3 are side-by-side in the 'source' folder
+    phase2_data_file = os.path.join(os.path.dirname(current_dir), "phase_2", "data", "cleaned_restaurants.parquet")
     
     if os.path.exists(phase2_data_file):
         engine = RestaurantSearchEngine(phase2_data_file)
@@ -154,4 +154,4 @@ if __name__ == "__main__":
         print(context_string)
         print("-------------------------")
     else:
-        logger.warning(f"Data file not found at {phase2_data_file}. Please run Phase 2 data ingestion first.")
+        logger.warning(f"Data file not found at {phase2_data_file}. Please run phase_2 data ingestion first.")

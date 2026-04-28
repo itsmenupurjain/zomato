@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
 
-# Add Phase 5 src to path
+# Add phase_5 src to path
 phase5_src = os.path.join(os.path.dirname(os.path.abspath(__file__)), "src")
 if phase5_src not in sys.path:
     sys.path.append(phase5_src)
@@ -28,7 +28,7 @@ app.add_middleware(
 # Initialize backend controller
 data_path = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 
-    "phase 2", 
+    "phase_2", 
     "data", 
     "cleaned_restaurants.parquet"
 )

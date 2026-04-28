@@ -1,6 +1,6 @@
 import pandas as pd
 
-df = pd.read_parquet('phase 2/data/cleaned_restaurants.parquet')
+df = pd.read_parquet('phase_2/data/cleaned_restaurants.parquet')
 
 print("=== Dataset Overview ===")
 print(f"Total restaurants: {len(df)}")

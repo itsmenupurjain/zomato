@@ -7,11 +7,11 @@ from backend_controller import BackendController
 
 def run_tests():
     print("Initializing Backend Controller...")
-    # Path to the parquet file from Phase 2
-    data_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "phase 2", "data", "cleaned_restaurants.parquet")
+    # Path to the parquet file from phase_2
+    data_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "phase_2", "data", "cleaned_restaurants.parquet")
     
     if not os.path.exists(data_path):
-        print(f"Data file not found at {data_path}. Please ensure Phase 2 data ingestion ran.")
+        print(f"Data file not found at {data_path}. Please ensure phase_2 data ingestion ran.")
         return
         
     try:
