@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #E23744;
+  --primary-hover: #C12A35;
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-blur: blur(12px);
+}
+
+body {
+  @apply bg-black text-white selection:bg-red-500/30;
+  font-family: 'Inter', sans-serif;
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-card:hover {
+  border-color: rgba(226, 55, 68, 0.4);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.text-glass {
+  @apply text-white/90;
+}
+
+.bg-hero {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/food_bg_luxury.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-white/20 rounded-full hover:bg-white/30;
+}
+
+/* Custom Range Slider */
+input[type='range'] {
+  -webkit-appearance: none;
+  background: rgba(255, 255, 255, 0.1);
+  height: 6px;
+  border-radius: 5px;
+  outline: none;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: var(--primary);
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(226, 55, 68, 0.5);
+  transition: all 0.2s ease;
+}
+
+input[type='range']::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 15px rgba(226, 55, 68, 0.8);
+}
+
+.custom-select {
+  @apply bg-transparent border-none focus:ring-0 text-lg placeholder:text-white/20 outline-none w-full appearance-none cursor-pointer;
+}
+
+.custom-select option {
+  @apply bg-neutral-900 text-white;
+}

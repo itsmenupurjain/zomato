@@ -1,0 +1,20 @@
+2026-04-24 21:45:27,153 - data_ingestion - INFO - Starting Phase 2: Data Ingestion & Preprocessing
+2026-04-24 21:45:27,157 - data_ingestion - INFO - Downloading dataset 'ManikaSaini/zomato-restaurant-recommendation' from Hugging Face...
+2026-04-24 21:45:27,795 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/ManikaSaini/zomato-restaurant-recommendation/resolve/main/README.md "HTTP/1.1 404 Not Found"
+2026-04-24 21:45:28,103 - httpx - INFO - HTTP Request: GET https://huggingface.co/api/datasets/ManikaSaini/zomato-restaurant-recommendation "HTTP/1.1 200 OK"
+2026-04-24 21:45:28,383 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/ManikaSaini/zomato-restaurant-recommendation/resolve/5738e9eda2fad49ad51c6e0ed26e761d9b947133/zomato-restaurant-recommendation.py "HTTP/1.1 404 Not Found"
+2026-04-24 21:45:28,387 - huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-04-24 21:45:29,463 - httpx - INFO - HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/ManikaSaini/zomato-restaurant-recommendation/ManikaSaini/zomato-restaurant-recommendation.py "HTTP/1.1 404 Not Found"
+2026-04-24 21:45:29,746 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/ManikaSaini/zomato-restaurant-recommendation/resolve/5738e9eda2fad49ad51c6e0ed26e761d9b947133/README.md "HTTP/1.1 404 Not Found"
+2026-04-24 21:45:30,053 - httpx - INFO - HTTP Request: GET https://huggingface.co/api/datasets/ManikaSaini/zomato-restaurant-recommendation/revision/5738e9eda2fad49ad51c6e0ed26e761d9b947133 "HTTP/1.1 200 OK"
+2026-04-24 21:45:30,333 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/ManikaSaini/zomato-restaurant-recommendation/resolve/5738e9eda2fad49ad51c6e0ed26e761d9b947133/.huggingface.yaml "HTTP/1.1 404 Not Found"
+2026-04-24 21:45:30,753 - httpx - INFO - HTTP Request: GET https://datasets-server.huggingface.co/info?dataset=ManikaSaini/zomato-restaurant-recommendation "HTTP/1.1 200 OK"
+2026-04-24 21:45:31,049 - httpx - INFO - HTTP Request: GET https://huggingface.co/api/datasets/ManikaSaini/zomato-restaurant-recommendation/tree/5738e9eda2fad49ad51c6e0ed26e761d9b947133/data?recursive=true&expand=false "HTTP/1.1 404 Not Found"
+2026-04-24 21:45:31,325 - httpx - INFO - HTTP Request: GET https://huggingface.co/api/datasets/ManikaSaini/zomato-restaurant-recommendation/tree/5738e9eda2fad49ad51c6e0ed26e761d9b947133?recursive=false&expand=false "HTTP/1.1 200 OK"
+2026-04-24 21:45:31,717 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/ManikaSaini/zomato-restaurant-recommendation/resolve/5738e9eda2fad49ad51c6e0ed26e761d9b947133/dataset_infos.json "HTTP/1.1 404 Not Found"
+2026-04-24 21:45:31,985 - data_ingestion - INFO - Dataset loaded successfully with shape: (51717, 17)
+2026-04-24 21:45:31,987 - data_ingestion - INFO - Applying Data Cleaning & Transformation...
+2026-04-24 21:45:33,325 - data_ingestion - INFO - Dropped 7786 rows due to missing critical values.
+2026-04-24 21:45:34,118 - data_ingestion - INFO - Dropped 2521 rows due to unparseable rating or cost.
+2026-04-24 21:45:34,120 - data_ingestion - INFO - Exporting cleaned DataFrame to c:\Users\Admin\Desktop\zomato project\source\phase 2\data\cleaned_restaurants.parquet...
+2026-04-24 21:45:35,713 - data_ingestion - INFO - Data successfully exported to Parquet format.

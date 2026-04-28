@@ -1,0 +1,5 @@
+2026-04-24 22:05:00,088 - search_engine - INFO - Loading data from C:\Users\Admin\Desktop\zomato project\source\phase 2\data\cleaned_restaurants.parquet...
+2026-04-24 22:05:01,194 - search_engine - INFO - Successfully loaded 41410 restaurant records.
+2026-04-24 22:05:01,194 - search_engine - INFO - Test Query -> Location: Indiranagar, Budget: Medium, Cuisines: ['Italian', 'Cafe'], Min Rating: 4.0
+2026-04-24 22:05:01,474 - search_engine - INFO - Filtering applied. 83 restaurants match the criteria.
+2026-04-24 22:05:01,478 - search_engine - INFO - Generated context string for 5 restaurants.

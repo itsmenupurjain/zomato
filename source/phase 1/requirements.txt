@@ -1,0 +1,6 @@
+pandas
+datasets
+groq
+python-dotenv
+streamlit
+pytest
