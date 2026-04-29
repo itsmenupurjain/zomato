@@ -86,29 +86,31 @@ st.markdown("""
 # --- INITIALIZE BACKEND ---
 @st.cache_resource
 def get_controller():
-    # Possible relative paths to the data file
-    possible_paths = [
-        os.path.join("source", "phase_2", "data", "cleaned_restaurants.parquet"),
-        os.path.join("zomato", "source", "phase_2", "data", "cleaned_restaurants.parquet"),
-        "cleaned_restaurants.parquet" # Fallback if moved to root
+    # Smart Search: Try to find the file anywhere in the project
+    filename = "cleaned_restaurants.parquet"
+    data_path = None
+    
+    # 1. Try standard relative paths
+    standard_paths = [
+        os.path.join("source", "phase_2", "data", filename),
+        filename
     ]
     
-    data_path = None
-    for p in possible_paths:
+    for p in standard_paths:
         if os.path.exists(p):
             data_path = p
             break
             
+    # 2. Recursive search if not found (robust for cloud)
     if not data_path:
-        # Final attempt: Absolute path check
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        abs_path = os.path.join(current_dir, "source", "phase_2", "data", "cleaned_restaurants.parquet")
-        if os.path.exists(abs_path):
-            data_path = abs_path
-            
+        for root, dirs, files in os.walk("."):
+            if filename in files:
+                data_path = os.path.join(root, filename)
+                break
+                
     if not data_path:
-        st.error("🚨 Critical Error: Restaurant database not found. Please ensure 'cleaned_restaurants.parquet' is in 'source/phase_2/data/'.")
-        st.info("Tip: If you are using Git LFS, ensure the file was pushed correctly.")
+        st.error(f"🚨 Critical Error: '{filename}' not found.")
+        st.write("Current Directory Contents:", os.listdir("."))
         return None
         
     return BackendController(data_path)
