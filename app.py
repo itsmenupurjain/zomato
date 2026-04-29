@@ -86,7 +86,13 @@ st.markdown("""
 # --- INITIALIZE BACKEND ---
 @st.cache_resource
 def get_controller():
-    data_path = os.path.join("source", "phase_2", "data", "cleaned_restaurants.parquet")
+    # Use absolute path relative to this script
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    data_path = os.path.join(current_dir, "source", "phase_2", "data", "cleaned_restaurants.parquet")
+    
+    if not os.path.exists(data_path):
+        st.error(f"Critical Error: Data file not found at {data_path}")
+        return None
     return BackendController(data_path)
 
 controller = get_controller()

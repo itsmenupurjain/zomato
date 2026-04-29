@@ -23,23 +23,18 @@ class LLMRecommendationEngine:
         """
         Initializes the Groq API client and sets up the System Prompt persona.
         """
-        # Try root directory first (four levels up from source/phase_4/src/llm_engine.py)
-        root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-        env_path_root = os.path.join(root_dir, ".env")
+        # Try loading .env from multiple levels up (more robust search)
+        load_dotenv() # Default search
         
-        # Try phase_1 directory (previous location)
-        env_path_phase1 = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "phase_1", ".env")
-        
-        if os.path.exists(env_path_root):
-            load_dotenv(env_path_root)
-            logger.info(f"Loaded environment variables from {env_path_root}")
-        elif os.path.exists(env_path_phase1):
-            load_dotenv(env_path_phase1)
-            logger.info(f"Loaded environment variables from {env_path_phase1}")
-        else:
-            # Try default load_dotenv() which searches upwards
-            load_dotenv()
-            logger.info("Attempted default load_dotenv() search")
+        # Manually check root if default fails
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        for _ in range(4):
+            env_path = os.path.join(current_dir, ".env")
+            if os.path.exists(env_path):
+                load_dotenv(env_path)
+                logger.info(f"Loaded environment variables from {env_path}")
+                break
+            current_dir = os.path.dirname(current_dir)
         
         api_key = os.getenv("GROQ_API_KEY")
         if not api_key:
