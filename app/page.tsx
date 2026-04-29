@@ -17,7 +17,7 @@ export default function Home() {
   ])
   const [results, setResults] = useState<any[]>([])
   
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+  const API_URL = '' // Empty for relative calls in Vercel (/api/...)
 
   useEffect(() => {
     fetch(`${API_URL}/api/locations`)
