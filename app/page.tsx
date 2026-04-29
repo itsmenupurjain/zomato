@@ -30,12 +30,12 @@ export default function Home() {
 
 
   const cuisines = [
-    { id: 'north-indian', name: 'North Indian' },
-    { id: 'chinese', name: 'Chinese' },
-    { id: 'italian', name: 'Italian' },
-    { id: 'street-food', name: 'Street Food' },
-    { id: 'cafe', name: 'Cafe' },
-    { id: 'desserts', name: 'Desserts' }
+    { id: 'North Indian', name: 'North Indian' },
+    { id: 'Chinese', name: 'Chinese' },
+    { id: 'Italian', name: 'Italian' },
+    { id: 'Street Food', name: 'Street Food' },
+    { id: 'Cafe', name: 'Cafe' },
+    { id: 'Desserts', name: 'Desserts' }
   ]
 
   const toggleCuisine = (cuisineId: string) => {

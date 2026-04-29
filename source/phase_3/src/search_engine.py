@@ -65,7 +65,7 @@ class RestaurantSearchEngine:
         # 2. Maximum Budget Filter (User-defined maximum cost)
         if max_budget is not None and max_budget > 0:
             mask = mask & (self.df['Cost'] <= max_budget)
-            logger.info(f"Applied maximum budget filter: ₹{max_budget}")
+            logger.info(f"Applied maximum budget filter: {max_budget}")
             
         # 3. Cuisine Filter (List intersection)
         if cuisines and len(cuisines) > 0:
