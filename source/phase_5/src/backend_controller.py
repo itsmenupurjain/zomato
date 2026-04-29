@@ -107,14 +107,14 @@ class BackendController:
                     })
                     seen_names.add(str(rec_name).lower())
         
-        # 5. Fallback: If we have fewer than 3 recommendations, add top-rated restaurants from filtered results
-        # Only add fallback if we have less than 3, otherwise keep what we have (3-5 is acceptable)
-        if len(final_results) < 3 and len(filtered_df) > len(final_results):
-            logger.info(f"LLM returned {len(final_results)} recommendations. Adding fallback recommendations to reach at least 3.")
+        # 5. Fallback: If we have fewer than 5 recommendations, add top-rated restaurants from filtered results
+        # We ensure at least 3-5 results as long as data exists in the database
+        if len(final_results) < 5 and len(filtered_df) > len(final_results):
+            logger.info(f"LLM returned {len(final_results)} recommendations. Adding fallback recommendations to reach up to 5.")
             
             # Add top-rated restaurants that weren't recommended by LLM
             for _, row in filtered_df.iterrows():
-                if len(final_results) >= 3:  # Stop at 3 minimum
+                if len(final_results) >= 5:  # Stop at 5 maximum
                     break
                     
                 row_name = row.get("Name", "")

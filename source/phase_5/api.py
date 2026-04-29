@@ -15,7 +15,7 @@ from backend_controller import BackendController
 app = FastAPI(title="Zomato AI API")
 
 # Configure CORS for Next.js frontend
-allowed_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000").split(",")
+allowed_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://localhost:3001").split(",")
 
 app.add_middleware(
     CORSMiddleware,
@@ -85,14 +85,21 @@ def get_recommendations(req: RecommendRequest):
         # Enrich recommendations with images
         for rec in recommendations:
             cuisine_str = str(rec.get("Cuisine", "")).lower()
-            assigned_img = cuisine_images["default"]
+            name_str = str(rec.get("Name", "restaurant"))
+            # Simple deterministic hash for a unique image ID
+            name_hash = sum(ord(c) for c in name_str)
             
+            assigned_img = cuisine_images["default"]
             for key in cuisine_images:
                 if key in cuisine_str:
                     assigned_img = cuisine_images[key]
                     break
             
-            rec["Image"] = assigned_img
+            # Append a unique signature to the Unsplash URL to get a varied image
+            if "?" in assigned_img:
+                rec["Image"] = f"{assigned_img}&sig={name_hash}"
+            else:
+                rec["Image"] = f"{assigned_img}?sig={name_hash}"
 
         return {"recommendations": recommendations}
     except Exception as e:
