@@ -48,6 +48,7 @@ export default function Home() {
 
   const handleSearch = async () => {
     setIsSearching(true)
+    setResults([]) // Clear previous results
     try {
       const response = await fetch(`${API_URL}/api/recommend`, {
         method: 'POST',
@@ -60,6 +61,9 @@ export default function Home() {
           user_query: ambiance
         })
       })
+      
+      if (!response.ok) throw new Error('API request failed');
+      
       const data = await response.json()
       if (data.recommendations) {
         setResults(data.recommendations)
@@ -69,6 +73,7 @@ export default function Home() {
     } catch (error) {
       console.error("Error fetching recommendations:", error)
       setResults([])
+      // Trigger a visual error state in results if needed
     } finally {
       setIsSearching(false)
       setShowResults(true)
