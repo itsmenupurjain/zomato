@@ -277,7 +277,7 @@ export default function Home() {
                 <div className="flex items-center justify-between">
                   <div>
                     <h2 className="text-4xl font-black">Top Picks For You</h2>
-                    <p className="text-white/40">AI selected 3 gems matching your unique vibe.</p>
+
                   </div>
                 </div>
               </div>
