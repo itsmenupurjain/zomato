@@ -4,6 +4,17 @@
 ## Overview
 This document outlines the detailed step-by-step architecture for building an AI-powered restaurant recommendation service, leveraging structured data and Large Language Models (LLMs).
 
+## phase_7: Resilience & Error Handling
+1.  **Scenario: LLM Failure (API/Parsing Error)**
+    - **Behavior:** If the Groq API fails or returns invalid JSON, the `BackendController` catches the exception.
+    - **Fix:** Bypasses the LLM and uses the `Fallback Engine` to serve the top-rated restaurants from the pre-filtered structured data.
+2.  **Scenario: No Matching Data (Zero Results)**
+    - **Behavior:** If strict filters (Location + Budget + Cuisine + Rating) return zero rows.
+    - **Fix:** Implements a **Tiered Relaxation** strategy. It automatically attempts a second "Relaxed Search" by increasing the budget range (+50%) and ignoring the rating threshold before returning an empty state.
+3.  **Scenario: Total Database Absence**
+    - **Behavior:** When even relaxed filters return nothing.
+    - **Fix:** Frontend triggers a guided "Empty State" UI that asks the user to manually loosen their search criteria.
+
 ---
 
 ## phase_1: Project Setup & Environment Preparation
@@ -17,7 +28,9 @@ This document outlines the detailed step-by-step architecture for building an AI
      - `datasets` (Fetching from Hugging Face)
      - `groq` (LLM API client)
      - `python-dotenv` (Environment variable management)
-     - `streamlit` (Frontend UI framework)
+     - `fastapi` (Backend API framework)
+     - `uvicorn` (ASGI server)
+     - `next` (Frontend React framework)
 3. **Environment Variables:** 
    - Create a `.env` file to securely store credentials like `GROQ_API_KEY`.
    - Add `.env` to `.gitignore` to prevent exposing secrets.
@@ -63,7 +76,7 @@ This document outlines the detailed step-by-step architecture for building an AI
    - Initialize the Groq API client.
    - Send the prompt to a fast model (e.g., `llama3-70b-8192` or `mixtral-8x7b-32768`) to ensure low-latency responses suitable for a real-time UI.
 3. **Reasoning & Ranking:** 
-   - Instruct the LLM to evaluate the pre-filtered options against the user's specific nuances, select the top 3-5 best fits, and generate a brief, compelling, human-like explanation for each choice.
+   - Instruct the LLM to evaluate the pre-filtered options against the user's specific nuances, select exactly 3-5 best fits, and generate a unique, compelling, human-like explanation for each choice.
 4. **Response Parsing:** 
    - Prompt the LLM to return its response in a structured format (like JSON or specific Markdown headers).
    - Parse the LLM output in Python to separate the restaurant details from the generated explanations for clean UI rendering.
@@ -86,6 +99,8 @@ This document outlines the detailed step-by-step architecture for building an AI
    - Show a loading spinner (`st.spinner`) while the data filtering and LLM API call are in progress.
    - Display the final recommendations using `st.columns` or `st.container` to create visual "cards".
    - Each card should clearly show the Restaurant Name, Rating, Cost, Cuisine, and crucially, the AI-generated personalized explanation.
+5. **Empty State Handling:**
+    - If the stored data contains zero matching restaurants, display a clear message asking the user to loosen their search criteria (e.g., increase budget or expand location).
 
 ## phase_6: Testing & Optimization
 1. **Unit Testing:** 

@@ -40,7 +40,7 @@ class BackendController:
     def get_recommendations(self, location: str, max_budget: float, cuisines: list, min_rating: float, user_query: str):
         logger.info(f"Processing request: Location={location}, Max Budget={max_budget}, Cuisines={cuisines}, Rating>={min_rating}")
         
-        # 1. Filter Data (Search Engine phase_3) - Get top 5 to match user request
+        # 1. Filter Data (Search Engine phase_3) - Strict Match
         filtered_df = self.search_engine.filter_restaurants(
             location=location,
             max_budget=max_budget,
@@ -49,8 +49,19 @@ class BackendController:
             top_k=5
         )
         
+        # Scenario: No Data in Strict Filter -> Try Relaxed Match (Ignore rating and slightly increase budget)
         if filtered_df.empty:
-            logger.info("No restaurants matched the strict filters.")
+            logger.info("No strict matches found. Attempting Relaxed Search...")
+            filtered_df = self.search_engine.filter_restaurants(
+                location=location,
+                max_budget=max_budget * 1.5 if max_budget else None,
+                cuisines=cuisines,
+                min_rating=None, # Relax rating
+                top_k=5
+            )
+        
+        if filtered_df.empty:
+            logger.info("Even relaxed search returned 0 results. Triggering Zero Data state.")
             return []
 
         # 2. Generate Context Block
