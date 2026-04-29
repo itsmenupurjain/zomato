@@ -15,7 +15,12 @@ from backend_controller import BackendController
 app = FastAPI(title="Zomato AI API")
 
 # Configure CORS for Next.js frontend
-allowed_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://localhost:3001").split(",")
+# In production, set ALLOWED_ORIGINS to your vercel URL
+allowed_origins_env = os.getenv("ALLOWED_ORIGINS", "")
+if allowed_origins_env:
+    allowed_origins = allowed_origins_env.split(",")
+else:
+    allowed_origins = ["*"] # Allow all for initial deployment ease
 
 app.add_middleware(
     CORSMiddleware,
