@@ -22,7 +22,7 @@ controller = None
 def get_controller():
     global controller
     if controller is None:
-        filename = "cleaned_restaurants.parquet"
+        filename = "vercel_restaurants.parquet"
         target_path = None
         
         # Try standard path
