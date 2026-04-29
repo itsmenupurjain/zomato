@@ -28,9 +28,7 @@ This document outlines the detailed step-by-step architecture for building an AI
      - `datasets` (Fetching from Hugging Face)
      - `groq` (LLM API client)
      - `python-dotenv` (Environment variable management)
-     - `fastapi` (Backend API framework)
-     - `uvicorn` (ASGI server)
-     - `next` (Frontend React framework)
+     - `streamlit` (Unified Frontend & Deployment UI)
 3. **Environment Variables:** 
    - Create a `.env` file to securely store credentials like `GROQ_API_KEY`.
    - Add `.env` to `.gitignore` to prevent exposing secrets.

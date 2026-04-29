@@ -6,3 +6,5 @@ groq
 python-dotenv
 numpy
 python-multipart
+streamlit
+datasets
