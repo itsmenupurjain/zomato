@@ -40,13 +40,13 @@ class BackendController:
     def get_recommendations(self, location: str, max_budget: float, cuisines: list, min_rating: float, user_query: str):
         logger.info(f"Processing request: Location={location}, Max Budget={max_budget}, Cuisines={cuisines}, Rating>={min_rating}")
         
-        # 1. Filter Data (Search Engine phase_3) - Get top 15 to give LLM more options
+        # 1. Filter Data (Search Engine phase_3) - Get top 5 to match user request
         filtered_df = self.search_engine.filter_restaurants(
             location=location,
             max_budget=max_budget,
             cuisines=cuisines,
             min_rating=min_rating,
-            top_k=15
+            top_k=5
         )
         
         if filtered_df.empty:

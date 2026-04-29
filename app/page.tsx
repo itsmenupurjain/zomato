@@ -163,7 +163,7 @@ export default function Home() {
                 <motion.div variants={itemVariants} className="glass-card p-6 rounded-3xl space-y-4">
                   <div className="flex items-center gap-3 text-primary">
                     <IndianRupee className="w-5 h-5" />
-                    <h3 className="font-bold text-sm tracking-widest uppercase">Budget</h3>
+                    <h3 className="font-bold text-sm tracking-widest uppercase">Maximum Budget</h3>
                   </div>
                   <div className="space-y-2">
                     <input 
@@ -284,8 +284,25 @@ export default function Home() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {results.length === 0 ? (
-                  <div className="col-span-full text-center text-white/50 text-xl py-12">
-                    No restaurants found matching your criteria. Try loosening your filters!
+                  <div className="col-span-full text-center py-20 px-6 glass-card rounded-[3rem] border-white/5">
+                    <div className="max-w-md mx-auto space-y-6">
+                      <div className="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto">
+                        <Search className="w-10 h-10 text-white/20" />
+                      </div>
+                      <div className="space-y-2">
+                        <h3 className="text-2xl font-bold">No Results Found</h3>
+                        <p className="text-white/40 leading-relaxed text-lg">
+                          We couldn't find any restaurants matching your exact criteria. 
+                          Please try **loosening your filters** (e.g., increasing your budget or changing the location) for better results.
+                        </p>
+                      </div>
+                      <button 
+                        onClick={() => setShowResults(false)}
+                        className="px-8 py-3 bg-white/10 hover:bg-white/20 rounded-full font-bold transition-all"
+                      >
+                        Adjust Filters
+                      </button>
+                    </div>
                   </div>
                 ) : (
                   results.map((res, idx) => (
