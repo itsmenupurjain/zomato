@@ -86,13 +86,31 @@ st.markdown("""
 # --- INITIALIZE BACKEND ---
 @st.cache_resource
 def get_controller():
-    # Use absolute path relative to this script
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    data_path = os.path.join(current_dir, "source", "phase_2", "data", "cleaned_restaurants.parquet")
+    # Possible relative paths to the data file
+    possible_paths = [
+        os.path.join("source", "phase_2", "data", "cleaned_restaurants.parquet"),
+        os.path.join("zomato", "source", "phase_2", "data", "cleaned_restaurants.parquet"),
+        "cleaned_restaurants.parquet" # Fallback if moved to root
+    ]
     
-    if not os.path.exists(data_path):
-        st.error(f"Critical Error: Data file not found at {data_path}")
+    data_path = None
+    for p in possible_paths:
+        if os.path.exists(p):
+            data_path = p
+            break
+            
+    if not data_path:
+        # Final attempt: Absolute path check
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        abs_path = os.path.join(current_dir, "source", "phase_2", "data", "cleaned_restaurants.parquet")
+        if os.path.exists(abs_path):
+            data_path = abs_path
+            
+    if not data_path:
+        st.error("🚨 Critical Error: Restaurant database not found. Please ensure 'cleaned_restaurants.parquet' is in 'source/phase_2/data/'.")
+        st.info("Tip: If you are using Git LFS, ensure the file was pushed correctly.")
         return None
+        
     return BackendController(data_path)
 
 controller = get_controller()
