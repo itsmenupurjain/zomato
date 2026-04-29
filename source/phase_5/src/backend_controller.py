@@ -4,16 +4,19 @@ import logging
 import pandas as pd
 import numpy as np
 
-# Setup logging
-log_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "logs")
-os.makedirs(log_dir, exist_ok=True)
+# Setup logging - Cloud-Native approach
+is_vercel = os.getenv("VERCEL") == "1"
+handlers = [logging.StreamHandler(sys.stdout)]
+
+if not is_vercel:
+    log_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "logs")
+    os.makedirs(log_dir, exist_ok=True)
+    handlers.append(logging.FileHandler(os.path.join(log_dir, "backend_controller.log")))
+
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.StreamHandler(sys.stdout),
-        logging.FileHandler(os.path.join(log_dir, "backend_controller.log"))
-    ]
+    handlers=handlers
 )
 logger = logging.getLogger("backend_controller")
 

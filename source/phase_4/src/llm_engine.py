@@ -5,16 +5,19 @@ import sys
 from groq import Groq
 from dotenv import load_dotenv
 
-# Setup logging for phase_4
-log_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "logs")
-os.makedirs(log_dir, exist_ok=True)
+# Setup logging - Cloud-Native approach
+is_vercel = os.getenv("VERCEL") == "1"
+handlers = [logging.StreamHandler(sys.stdout)]
+
+if not is_vercel:
+    log_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "logs")
+    os.makedirs(log_dir, exist_ok=True)
+    handlers.append(logging.FileHandler(os.path.join(log_dir, "llm_engine.log")))
+
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.StreamHandler(sys.stdout),
-        logging.FileHandler(os.path.join(log_dir, "llm_engine.log"))
-    ]
+    handlers=handlers
 )
 logger = logging.getLogger("llm_engine")
 
