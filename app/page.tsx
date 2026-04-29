@@ -12,7 +12,9 @@ export default function Home() {
   const [ambiance, setAmbiance] = useState('')
   const [isSearching, setIsSearching] = useState(false)
   const [showResults, setShowResults] = useState(false)
-  const [locations, setLocations] = useState<string[]>(['Any'])
+  const [locations, setLocations] = useState<string[]>([
+    'Any', 'BTM', 'Banashankari', 'Indiranagar', 'Jayanagar', 'Koramangala', 'HSR', 'Whitefield', 'Marathahalli', 'JP Nagar'
+  ])
   const [results, setResults] = useState<any[]>([])
   
   const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
