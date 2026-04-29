@@ -122,16 +122,16 @@ class BackendController:
                     seen_names.add(str(rec_name).lower())
         
         # 5. Fallback: If we have fewer than 5 recommendations, add top-rated restaurants from filtered results
-        # We ensure at least 3-5 results as long as data exists in the database
-        if len(final_results) < 5 and len(filtered_df) > len(final_results):
-            logger.info(f"LLM returned {len(final_results)} recommendations. Adding fallback recommendations to reach up to 5.")
+        # We ensure exactly 5 results as long as data exists in the database
+        if len(final_results) < 5 and len(filtered_df) > 0:
+            logger.info(f"LLM returned {len(final_results)} recommendations. Adding fallback recommendations to reach exactly 5.")
             
-            # Add top-rated restaurants that weren't recommended by LLM
+            # Add top-rated restaurants that weren't recommended by LLM or were missed
             for _, row in filtered_df.iterrows():
-                if len(final_results) >= 5:  # Stop at 5 maximum
+                if len(final_results) >= 5: 
                     break
                     
-                row_name = row.get("Name", "")
+                row_name = str(row.get("Name", ""))
                 if row_name.lower() not in seen_names:
                     cuisine_val = row.get('Cuisine', [])
                     cuisine_str = ", ".join(cuisine_val) if isinstance(cuisine_val, (list, tuple, np.ndarray)) else str(cuisine_val)
@@ -142,9 +142,10 @@ class BackendController:
                         "Cost": row.get("Cost"),
                         "Cuisine": cuisine_str,
                         "Location": row.get("Location"),
-                        "Explanation": f"Highly rated option ({row.get('Rating')}⭐) matching your preferences. Great choice for {cuisine_str} cuisine in {row.get('Location')}."
+                        "Explanation": f"This is one of the highest-rated gems in {row.get('Location')} ({row.get('Rating')}⭐). It matches your preference for {cuisine_str} perfectly!"
                     })
                     seen_names.add(row_name.lower())
         
+        # Final safety check: if still under 5, we return what we have
         logger.info(f"Returning {len(final_results)} unique recommendations.")
         return final_results
