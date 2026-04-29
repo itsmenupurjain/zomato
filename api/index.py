@@ -22,9 +22,25 @@ controller = None
 def get_controller():
     global controller
     if controller is None:
-        if not os.path.exists(data_path):
-            raise Exception(f"Data file not found at {data_path}")
-        controller = BackendController(data_path)
+        filename = "cleaned_restaurants.parquet"
+        target_path = None
+        
+        # Try standard path
+        p1 = os.path.join(project_root, "source", "phase_2", "data", filename)
+        if os.path.exists(p1):
+            target_path = p1
+        
+        # Deep search fallback
+        if not target_path:
+            for root, dirs, files in os.walk(project_root):
+                if filename in files:
+                    target_path = os.path.join(root, filename)
+                    break
+        
+        if not target_path:
+            raise Exception(f"Critical: Database file '{filename}' not found in project.")
+            
+        controller = BackendController(target_path)
     return controller
 
 class RecommendRequest(BaseModel):
