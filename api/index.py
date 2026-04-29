@@ -4,14 +4,31 @@ from typing import List, Optional
 import os
 import sys
 
-# Add the project root to path to find source modules
-current_dir = os.path.dirname(os.path.abspath(__file__))
-project_root = os.path.dirname(current_dir)
-if project_root not in sys.path:
-    sys.path.append(project_root)
-    sys.path.append(os.path.join(project_root, "source", "phase_5", "src"))
+# Add the project root and source directories to path
+import os
+import sys
 
-from backend_controller import BackendController
+# Vercel's task root is /var/task
+project_root = os.getcwd()
+src_path = os.path.join(project_root, "source", "phase_5", "src")
+
+if src_path not in sys.path:
+    sys.path.insert(0, src_path)
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
+# Debug: Print path to Vercel logs
+print(f"DEBUG: Project Root: {project_root}")
+print(f"DEBUG: Source Path: {src_path}")
+print(f"DEBUG: System Path: {sys.path}")
+
+try:
+    from backend_controller import BackendController
+except ImportError as e:
+    print(f"DEBUG: Failed to import backend_controller: {e}")
+    # Try one more relative fallback
+    sys.path.append(os.path.join(os.path.dirname(__file__), "..", "source", "phase_5", "src"))
+    from backend_controller import BackendController
 
 app = FastAPI()
 
